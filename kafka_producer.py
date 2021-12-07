@@ -2,7 +2,7 @@ import asyncio
 from kafka import KafkaProducer
 from aiokafka import AIOKafkaProducer
 
-from model import Command, SetXMICommand
+from commands import Command, SetXMICommand, SetXMICommand2, SetXMICommand3
 from contextlib import closing
 
 
@@ -21,7 +21,7 @@ async def send():
     try:
         # create the message
         message = user.serialize()
-        await producer.send_and_wait("my_topic2", message)
+        await producer.send_and_wait("my_topic3", message)
 
         print("done")
     finally:

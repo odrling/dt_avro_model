@@ -1,7 +1,7 @@
 .PHONY: clean test
 
-command.avsc: model.py
-	python -c "import json, model; print(json.dumps(model.Command.avro_schema_to_python(), indent=4))" > $@ || rm -f $@
+command.avsc: gen_avro_schema.py commands.py
+	python $<
 
 test.avro: test.py command.avsc
 	python $<
