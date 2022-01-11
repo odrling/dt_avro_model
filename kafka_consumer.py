@@ -6,7 +6,6 @@ from typing import cast
 from aiokafka import AIOKafkaConsumer, ConsumerRecord, TopicPartition
 
 from commands import Command
-from model import Model
 
 
 async def consume():
@@ -14,9 +13,9 @@ async def consume():
         bootstrap_servers='localhost:9092',
     )
 
-    models = defaultdict(Model)
+    # models = defaultdict(Model)
 
-    tp = TopicPartition("my_topic3", 0)
+    tp = TopicPartition("my_topic10", 0)
 
     async with consumer:
         consumer.assign([tp])
@@ -26,7 +25,7 @@ async def consume():
         async for msg in consumer:
             try:
                 cmd = cast(Command, Command.deserialize(cast(bytes, msg.value)))
-                print(f"Command: {cmd.command}")
+                print(f"Command: {cmd}")
             except Exception:
                 traceback.print_exc()
 
