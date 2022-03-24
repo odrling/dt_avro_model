@@ -1,6 +1,5 @@
 import asyncio
 import traceback
-from collections import defaultdict
 from typing import cast
 
 from aiokafka import AIOKafkaConsumer, ConsumerRecord, TopicPartition
@@ -15,7 +14,7 @@ async def consume():
 
     # models = defaultdict(Model)
 
-    tp = TopicPartition("my_topic10", 0)
+    tp = TopicPartition("model-trace", 0)
 
     async with consumer:
         consumer.assign([tp])

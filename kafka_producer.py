@@ -21,7 +21,7 @@ async def send():
         Command(command=ElementEvent(elementID="Task_2", action=Actions.END)),
     ]
 
-    topic_send = partial(producer.send_and_wait, "my_topic11")
+    topic_send = partial(producer.send_and_wait, "model-trace")
 
     try:
         await producer.start()
