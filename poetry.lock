@@ -25,7 +25,7 @@ dev = ["pytest (>=5)", "pytest-cov", "coveralls", "black", "mypy", "pylint"]
 
 [[package]]
 name = "dataclasses-avroschema"
-version = "0.26.1"
+version = "0.28.0"
 description = "Generate Avro Schemas from a Python class"
 category = "main"
 optional = false
@@ -39,9 +39,12 @@ inflect = ">=5.3.0"
 pytz = "*"
 stringcase = ">=1.2.0"
 
+[package.extras]
+pydantic = ["pydantic (>=1.9.0)"]
+
 [[package]]
 name = "faker"
-version = "11.3.0"
+version = "13.3.3"
 description = "Faker is a Python package that generates fake data for you."
 category = "main"
 optional = false
@@ -49,11 +52,10 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 python-dateutil = ">=2.4"
-text-unidecode = "1.3"
 
 [[package]]
 name = "fastavro"
-version = "1.4.8"
+version = "1.4.10"
 description = "Fast read/write of AVRO files"
 category = "main"
 optional = false
@@ -67,15 +69,15 @@ zstandard = ["zstandard"]
 
 [[package]]
 name = "inflect"
-version = "5.3.0"
+version = "5.4.0"
 description = "Correctly generate plurals, singular nouns, ordinals, indefinite articles; convert numbers to words"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.extras]
-docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
-testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "pytest-enabler", "pygments", "pytest-black (>=0.3.7)", "pytest-mypy"]
+docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)", "jaraco.tidelift (>=1.4)"]
+testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "pygments", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
 [[package]]
 name = "kafka-python"
@@ -101,7 +103,7 @@ six = ">=1.5"
 
 [[package]]
 name = "pytz"
-version = "2021.3"
+version = "2022.1"
 description = "World timezone definitions, modern and historical"
 category = "main"
 optional = false
@@ -123,18 +125,10 @@ category = "main"
 optional = false
 python-versions = "*"
 
-[[package]]
-name = "text-unidecode"
-version = "1.3"
-description = "The most basic Text::Unidecode port"
-category = "main"
-optional = false
-python-versions = "*"
-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "ba6553a7cacaa27e907ab32c3c3d6d5181e95fc906e4dfe2f4cf28c0ff58f663"
+content-hash = "dce1e42e468641199c87c84752db81ff43da6d205437c0f3bc7fa8561be28123"
 
 [metadata.files]
 aiokafka = [
@@ -165,32 +159,34 @@ dacite = [
     {file = "dacite-1.6.0.tar.gz", hash = "sha256:d48125ed0a0352d3de9f493bf980038088f45f3f9d7498f090b50a847daaa6df"},
 ]
 dataclasses-avroschema = [
-    {file = "dataclasses-avroschema-0.26.1.tar.gz", hash = "sha256:bdc24f78c23288402cc59b5aed3037cd088cffd828fa2ae260dcc0276e241b7a"},
+    {file = "dataclasses-avroschema-0.28.0.tar.gz", hash = "sha256:07ff1d207e9c044dcfa32f936678c8db284c94a3fc1df5b8a7702984f4eaacca"},
+    {file = "dataclasses_avroschema-0.28.0-py2.py3-none-any.whl", hash = "sha256:a093c1109076f96c782278f719fa78988d80b2122fb8f4f4a3a02d81d5cb9696"},
 ]
 faker = [
-    {file = "Faker-11.3.0-py3-none-any.whl", hash = "sha256:61f97034cea252b8426d81810afab2f3c27b584f2b4313400a0cc83a9b013ded"},
-    {file = "Faker-11.3.0.tar.gz", hash = "sha256:adbe567e64da6a1097feacab699000e1ad16e17a6592a8f0ae1ee0b7fbf19887"},
+    {file = "Faker-13.3.3-py3-none-any.whl", hash = "sha256:85ed0cb379e3b7414bdb6b484994beaf9bddc74472c8c35f743c16cf5fc0c314"},
+    {file = "Faker-13.3.3.tar.gz", hash = "sha256:5536ceb63380f0d598c026b7c330c17d719a19d1a495e9397ee8f5259420a696"},
 ]
 fastavro = [
-    {file = "fastavro-1.4.8-cp310-cp310-macosx_10_14_x86_64.whl", hash = "sha256:d4ede7a358e880fd89b4fbdd5ea9d22a7935b3b56198d5402705ffee45d17f26"},
-    {file = "fastavro-1.4.8-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dc95fcdbaa72c28c9444244d08fb7f02ff5495a8814244173549e90f7bd9733c"},
-    {file = "fastavro-1.4.8-cp310-cp310-win_amd64.whl", hash = "sha256:98dbfabf42fd11d0bdf6f7af231043447c5e5f6d68427a8cbef31ef33739c0a4"},
-    {file = "fastavro-1.4.8-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:355764158d31c7f4e0fba7be42ed9cfd228db5043efd1e2aeeb987c961a09d3a"},
-    {file = "fastavro-1.4.8-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:13f1b7a92e014a4b43e6b2e08eec043b0e3fb1e713769d6585b658ad9fbe7593"},
-    {file = "fastavro-1.4.8-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d0126e8fff7294854157d3f2d0b9c056fbe24a941b01bef48badcf608feb241e"},
-    {file = "fastavro-1.4.8-cp37-cp37m-win_amd64.whl", hash = "sha256:8abce3e99ddbfd9613c41e97b292d43745a2fc311343f7ef58c6517aab4b71e5"},
-    {file = "fastavro-1.4.8-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:eea2974a75f5c15691d37a0ccd505cb61e38580b38b0bdd17cc051b0414902fe"},
-    {file = "fastavro-1.4.8-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9f6f63594a5d4e7aa3d123715aa5430bcb6cf36e9b1c079efdfa5f687385c0f2"},
-    {file = "fastavro-1.4.8-cp38-cp38-win_amd64.whl", hash = "sha256:1ad54968eb42d5970247a99561e4876bb51e10717de89d0a2586dec107f85ef1"},
-    {file = "fastavro-1.4.8-cp39-cp39-macosx_10_14_x86_64.whl", hash = "sha256:0852fc0a2db7b08087c3d24962c1c3b73b02d27833ab779fe3737b3cc5d61967"},
-    {file = "fastavro-1.4.8-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d704eece6437bf98a5bcd5d79f87f6f76a0df07bb050380d9aae528e8da2a469"},
-    {file = "fastavro-1.4.8-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:09799e1ec32495c716abc6eddbd637e5b0cc5f5e1351fc61ffff0bd834b65f8a"},
-    {file = "fastavro-1.4.8-cp39-cp39-win_amd64.whl", hash = "sha256:fda0dbbb3f4f104c16aa1a7ddd278bbd1f215ca300e63cee2cfd28f614675686"},
-    {file = "fastavro-1.4.8.tar.gz", hash = "sha256:7ec4913adeed150e0981d598dd5aa49daa76abda7a1c3a1295aae6d7b0f42729"},
+    {file = "fastavro-1.4.10-cp310-cp310-macosx_10_14_x86_64.whl", hash = "sha256:f225c81e869b3cefef6f2b478cd452693181ed7e645be3cea4d82024354ecaa0"},
+    {file = "fastavro-1.4.10-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b7669302c9124b7cd6c1bdff80c77116b2290c984814077fb7d01d7389586054"},
+    {file = "fastavro-1.4.10-cp310-cp310-win_amd64.whl", hash = "sha256:995525bdfbdfef205ea148b5bc6a9fe5ccf921931123c39d9aad75a2b661681e"},
+    {file = "fastavro-1.4.10-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:64244c53f1e4853184c2f7383d0332e1dcb34c38c05e6613530ade0378e8acfc"},
+    {file = "fastavro-1.4.10-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c60965da6dc7a91e00ccd84d84797fad746555f44e8a816c4cc460fb231c44fe"},
+    {file = "fastavro-1.4.10-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:10eb25378f37dc00c10e83c4c0442c1a6d1b871f74a6dfdfc12b6447962bbdd0"},
+    {file = "fastavro-1.4.10-cp37-cp37m-win_amd64.whl", hash = "sha256:d5719adf6045fc743de5fa738d561a81e58dc782c94f1b16cb21b5dd6253e7fd"},
+    {file = "fastavro-1.4.10-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:24c4a1a8cc92e135ecfcd9cbd1f6cfa088cbc74d78c18e02a609cb11fa33778d"},
+    {file = "fastavro-1.4.10-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:0934490b0c3bcfd6bcbacbcb5144c6b5e4298cda209fbb17c856adf5405127dd"},
+    {file = "fastavro-1.4.10-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a23763d73412c077aee401a0368c64cbc23859e26711dbae78a3cf0227f65165"},
+    {file = "fastavro-1.4.10-cp38-cp38-win_amd64.whl", hash = "sha256:09f1dfdd8192ae09e0f477d1f024d8054fccdb099ad495d2a796bcee3cadebd1"},
+    {file = "fastavro-1.4.10-cp39-cp39-macosx_10_15_x86_64.whl", hash = "sha256:0c6695753fa3035bbd0fa5cb21bf1b5dad39483c669b32ca0bb55fb07c1ccc87"},
+    {file = "fastavro-1.4.10-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:35f960dbba04647d8d6d5616f879622d2a1e8a84eb2d2e02a883a22e0803463a"},
+    {file = "fastavro-1.4.10-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9660878ca01e3dbbee12385c5902a2b6b12ecbb5af4733d1026175a14b1ef67f"},
+    {file = "fastavro-1.4.10-cp39-cp39-win_amd64.whl", hash = "sha256:64cbd386e408b3bcb2de53b1f847163073eb0d0d0338db65f76051c6ba9a9bc1"},
+    {file = "fastavro-1.4.10.tar.gz", hash = "sha256:a24f9dd803c44bfb599476b000f9bd0088f7ac2401e6c20818f38d8af12785a0"},
 ]
 inflect = [
-    {file = "inflect-5.3.0-py3-none-any.whl", hash = "sha256:42560be16af702a21d43d59427f276b5aed79efb1ded9b713468c081f4353d10"},
-    {file = "inflect-5.3.0.tar.gz", hash = "sha256:41a23f6788962e9775e40e2ecfb1d6455d02de315022afeedd3c5dc070019d73"},
+    {file = "inflect-5.4.0-py3-none-any.whl", hash = "sha256:2eb3f9a481e12849370d5a74acc546cc128d79df6e483928aa78b5bb18244ef6"},
+    {file = "inflect-5.4.0.tar.gz", hash = "sha256:b58d58c4e73ffca9b25e075c1c4fc9cadecbb5c99d7cd9f3cdedda73ece83c1c"},
 ]
 kafka-python = [
     {file = "kafka-python-2.0.2.tar.gz", hash = "sha256:04dfe7fea2b63726cd6f3e79a2d86e709d608d74406638c5da33a01d45a9d7e3"},
@@ -201,8 +197,8 @@ python-dateutil = [
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
 ]
 pytz = [
-    {file = "pytz-2021.3-py2.py3-none-any.whl", hash = "sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c"},
-    {file = "pytz-2021.3.tar.gz", hash = "sha256:acad2d8b20a1af07d4e4c9d2e9285c5ed9104354062f275f3fcd88dcef4f1326"},
+    {file = "pytz-2022.1-py2.py3-none-any.whl", hash = "sha256:e68985985296d9a66a881eb3193b0906246245294a881e7c8afe623866ac6a5c"},
+    {file = "pytz-2022.1.tar.gz", hash = "sha256:1e760e2fe6a8163bc0b3d9a19c4f84342afa0a2affebfaa84b01b978a02ecaa7"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
@@ -210,8 +206,4 @@ six = [
 ]
 stringcase = [
     {file = "stringcase-1.2.0.tar.gz", hash = "sha256:48a06980661908efe8d9d34eab2b6c13aefa2163b3ced26972902e3bdfd87008"},
-]
-text-unidecode = [
-    {file = "text-unidecode-1.3.tar.gz", hash = "sha256:bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93"},
-    {file = "text_unidecode-1.3-py2.py3-none-any.whl", hash = "sha256:1311f10e8b895935241623731c2ba64f4c455287888b18189350b67134a822e8"},
 ]

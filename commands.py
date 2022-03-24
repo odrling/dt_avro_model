@@ -1,25 +1,44 @@
 from dataclasses import dataclass
 from typing import Union
+from enum import Enum
 
-from dataclasses_avroschema import AvroModel, types
+from dataclasses_avroschema import AvroModel
+
+
+class AvroCommandsModel(AvroModel):
+
+    class Meta:
+        namespace = "test.kafka.test.kafka.bpmn.avro"
 
 
 @dataclass
-class SetXMICommand(AvroModel):
+class SetXMICommand(AvroCommandsModel):
     """Set model XMI"""
     set_xmi: str
 
 
+class Actions(Enum):
+    START = "Start"
+    END = "End"
+
+
 @dataclass
-class ElementEvent(AvroModel):
+class ElementEvent(AvroCommandsModel):
     """Events on a workflow element"""
     elementID: str
-    event: types.Enum = types.Enum(["Start", "End"])
+    action: Actions
 
 
 @dataclass
-class Command(AvroModel):
-    command: Union[SetXMICommand, ElementEvent]
+class Deviation(AvroCommandsModel):
+    """Deviation occuring in the workflow"""
+    deviationID: str
+    event: ElementEvent
 
-    class Meta:
-        namespace = "test.kafka.test.kafka.bpmn.avro"
+
+PossibleCommands = Union[SetXMICommand, ElementEvent, Deviation]
+
+
+@dataclass
+class Command(AvroCommandsModel):
+    command: PossibleCommands

@@ -3,7 +3,7 @@ from functools import partial
 
 from aiokafka import AIOKafkaProducer
 
-from commands import Command, ElementEvent, SetXMICommand
+from commands import Command, ElementEvent, SetXMICommand, Actions
 
 
 async def send():
@@ -12,15 +12,23 @@ async def send():
     with open("/home/odrling/eclipse-workspaces/gemoc-xbpmn/test.bpmn/examples/process_1.bpmn") as f:  # noqa
         process = Command(command=SetXMICommand(f.read()))
 
-    event = Command(command=ElementEvent(elementID="Task_2", event="Start"))
+    events = [
+        Command(command=ElementEvent(elementID="Task_1", event=Actions.START)),
+        Command(command=ElementEvent(elementID="Task_1", event=Actions.END)),
+        Command(command=ElementEvent(elementID="Task_2", event=Actions.START)),
+        Command(command=ElementEvent(elementID="Task_3", event=Actions.START)),
+        Command(command=ElementEvent(elementID="Task_3", event=Actions.END)),
+        Command(command=ElementEvent(elementID="Task_2", event=Actions.END)),
+    ]
 
-    topic_send = partial(producer.send_and_wait, "my_topic10")
+    topic_send = partial(producer.send_and_wait, "my_topic11")
 
     try:
         await producer.start()
         # create the messages
         await topic_send(process.serialize())
-        await topic_send(event.serialize())
+        for event in events:
+            await topic_send(event.serialize())
 
         print("done")
     finally:
