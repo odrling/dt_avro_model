@@ -13,12 +13,12 @@ async def send():
         process = Command(command=SetXMICommand(f.read()))
 
     events = [
-        Command(command=ElementEvent(elementID="Task_1", event=Actions.START)),
-        Command(command=ElementEvent(elementID="Task_1", event=Actions.END)),
-        Command(command=ElementEvent(elementID="Task_2", event=Actions.START)),
-        Command(command=ElementEvent(elementID="Task_3", event=Actions.START)),
-        Command(command=ElementEvent(elementID="Task_3", event=Actions.END)),
-        Command(command=ElementEvent(elementID="Task_2", event=Actions.END)),
+        Command(command=ElementEvent(elementID="Task_1", action=Actions.START)),
+        Command(command=ElementEvent(elementID="Task_1", action=Actions.END)),
+        Command(command=ElementEvent(elementID="Task_2", action=Actions.START)),
+        Command(command=ElementEvent(elementID="Task_3", action=Actions.START)),
+        Command(command=ElementEvent(elementID="Task_3", action=Actions.END)),
+        Command(command=ElementEvent(elementID="Task_2", action=Actions.END)),
     ]
 
     topic_send = partial(producer.send_and_wait, "my_topic11")
