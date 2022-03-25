@@ -1,16 +1,15 @@
 #!/usr/bin/env python
+import importlib
 import json
-import sys
 from pathlib import Path
+import typer
 
-import commands
 
-schema = commands.Command.avro_schema_to_python()
+def main(schema_file: Path, command_class_name: str, output: Path):
+    commands = importlib.import_module(schema_file.stem)
+    schema = getattr(commands, command_class_name).avro_schema_to_python()
+    output.write_text(json.dumps(schema, indent=4))
 
-if len(sys.argv) > 1:
-    path = Path(sys.argv[1])
-else:
-    path = Path(__file__).parent / "command.avsc"
 
-with path.open('w') as f:
-    json.dump(schema, f, indent=4)
+if __name__ == "__main__":
+    typer.run(main)
