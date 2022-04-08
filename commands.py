@@ -26,6 +26,7 @@ class Actions(Enum):
 class ElementEvent(AvroCommandsModel):
     """Events on a workflow element"""
     elementID: str
+    timestamp: int
     action: Actions
 
 

@@ -1,26 +1,23 @@
 import asyncio
+import bisect
 import csv
 import datetime
 from dataclasses import dataclass
 from functools import partial
 from pathlib import Path
 from typing import Any
-import bisect
 
 import dateparser
+import requests
 from aiokafka import AIOKafkaProducer
 
 from commands import Actions, Command, ElementEvent, SetXMICommand
 
+ENDPOINT = "http://localhost:3000/action"
+
 
 def parse_date(date: str):
     return dateparser.parse(date, date_formats=["%d/%m/%y"])
-
-
-@dataclass
-class TraceEvent:
-    timestamp: datetime.datetime
-    event: ElementEvent
 
 
 @dataclass
@@ -39,21 +36,16 @@ class TraceParser:
 
     def events(self):
         if self.start is not None:
-            yield TraceEvent(self.start, ElementEvent(self.name, Actions.START))
+            yield ElementEvent(self.name, int(self.start.timestamp()), Actions.START)
         if self.finish is not None:
-            yield TraceEvent(self.finish, ElementEvent(self.name, Actions.END))
+            yield ElementEvent(self.name, int(self.finish.timestamp()), Actions.END)
 
 
-async def send():
-    producer = AIOKafkaProducer(bootstrap_servers='localhost:9092', acks='all')
-    # Produce message
-    # with open("/home/odrling/eclipse-workspaces/gemoc-xbpmn/test.bpmn/examples/process_1.bpmn") as f:  # noqa
-    #     process = Command(command=SetXMICommand(f.read()))
-
+def send():
     path_trace = Path(__file__).parent / "secret" / "Process_anonyme.csv"
 
     columns: list[str] | None = None
-    events: list[TraceEvent] = []
+    events: list[ElementEvent] = []
 
     with path_trace.open() as trace:
         trace_reader = csv.reader(trace)
@@ -71,21 +63,13 @@ async def send():
             for ev in trace_element.events():
                 bisect.insort(events, ev, key=lambda e: e.timestamp)
 
-    # topic_send = partial(producer.send_and_wait, "model-trace")
+    for event in events:
+        print(event)
+        command = Command(command=event)
+        requests.post(ENDPOINT, json=command.to_dict())
 
-    try:
-        await producer.start()
-        # create the messages
-        # await topic_send(process.serialize())
-        for event in events:
-            print(event)
-            # await topic_send(event.event.serialize(),
-            #                  timestamp_ms=round(event.timestamp.timestamp() * 1000))
-
-        print("done")
-    finally:
-        await producer.stop()
+    print("done")
 
 
 if __name__ == "__main__":
-    asyncio.run(send())
+    send()
