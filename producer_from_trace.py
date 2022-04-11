@@ -13,7 +13,7 @@ from aiokafka import AIOKafkaProducer
 
 from commands import Actions, Command, ElementEvent, SetXMICommand
 
-ENDPOINT = "http://localhost:3000/action"
+ENDPOINT = "http://localhost:8080/action"
 
 
 def parse_date(date: str):
