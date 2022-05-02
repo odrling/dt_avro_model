@@ -6,7 +6,7 @@ from time import time_ns
 
 
 def time():
-    return time_ns() // 1000
+    return time_ns() // 1000_000
 
 
 def main():
@@ -16,7 +16,7 @@ def main():
         ElementEvent(elementID="Task_2", timestamp=time(), action=Actions.START),
         ElementEvent(elementID="Task_3", timestamp=time(), action=Actions.START),
         ElementEvent(elementID="Task_3", timestamp=time(), action=Actions.END),
-        ElementEvent(elementID="Task_2", timestamp=time(), action=Actions.END),
+        # ElementEvent(elementID="Task_2", timestamp=time(), action=Actions.END),
     ]
 
     for event in events:
