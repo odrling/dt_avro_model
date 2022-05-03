@@ -1,19 +1,16 @@
-import asyncio
 import bisect
 import csv
 import datetime
 from dataclasses import dataclass
-from functools import partial
 from pathlib import Path
 from typing import Any
 
 import dateparser
 import requests
-from aiokafka import AIOKafkaProducer
 
-from commands import Actions, Command, ElementEvent, SetXMICommand
+from commands import Actions, Command, ElementEvent
 
-ENDPOINT = "http://localhost:8080/action"
+ENDPOINT = "http://localhost:8080/command"
 
 
 def parse_date(date: str):
@@ -36,16 +33,16 @@ class TraceParser:
 
     def events(self):
         if self.start is not None:
-            yield ElementEvent(self.name, int(self.start.timestamp()), Actions.START)
+            yield Command(ElementEvent(self.name, Actions.START), int(self.start.timestamp()))
         if self.finish is not None:
-            yield ElementEvent(self.name, int(self.finish.timestamp()), Actions.END)
+            yield Command(ElementEvent(self.name, Actions.END), int(self.finish.timestamp()))
 
 
 def send():
     path_trace = Path(__file__).parent / "secret" / "Process_anonyme.csv"
 
     columns: list[str] | None = None
-    events: list[ElementEvent] = []
+    events: list[Command] = []
 
     with path_trace.open() as trace:
         trace_reader = csv.reader(trace)
@@ -63,9 +60,8 @@ def send():
             for ev in trace_element.events():
                 bisect.insort(events, ev, key=lambda e: e.timestamp)
 
-    for event in events:
-        print(event)
-        command = Command(command=event)
+    for command in events:
+        print(command)
         requests.post(ENDPOINT, json=command.to_dict())
 
     print("done")

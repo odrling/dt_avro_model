@@ -10,9 +10,15 @@ def time():
     return time_ns() // 1000_000
 
 
-def main(elementID: str, action: Actions):
-    event = ElementEvent(elementID=elementID, timestamp=time(), action=action)
-    requests.post(ENDPOINT, json=event.to_dict())
+def send_command(command: Command):
+    resp = requests.post(ENDPOINT, json=command.to_dict())
+    print(resp.text)
+
+
+def main(element_id: str, action: Actions):
+    event = ElementEvent(elementID=element_id, action=action)
+    cmd = Command(command=event, timestamp=time())
+    send_command(cmd)
 
 
 if __name__ == "__main__":
