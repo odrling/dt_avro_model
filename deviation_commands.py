@@ -8,7 +8,7 @@ from commands import ElementEvent
 class AvroCommandsModel(AvroModel):
 
     class Meta:
-        namespace = "test.kafka.test.kafka.deviations.avro"
+        namespace = "avro.monitor.deviations"
 
 
 @dataclass
