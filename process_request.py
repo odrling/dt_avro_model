@@ -7,7 +7,7 @@ from utils import time
 
 async def send():
     # Produce message
-    with open("/home/odrling/eclipse-workspaces/gemoc-xbpmn/test.bpmn/examples/process_1.bpmn") as f:  # noqa
+    with open("/home/odrling/git/inria/dt_poc/monitor/src/main/resources/process_1.bpmn") as f:  # noqa
         process = SetXMICommand(f.read(), timestamp=time())
 
     send_model(process)
