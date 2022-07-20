@@ -12,9 +12,8 @@ class AvroCommandsModel(AvroModel):
 
 
 @dataclass
-class SetXMICommand(AvroCommandsModel):
+class StartProcess(AvroCommandsModel):
     """Set model XMI"""
-    model: str
     timestamp: int
 
 
@@ -39,7 +38,7 @@ class Deviation(AvroCommandsModel):
     timestamp: int
 
 
-PossibleCommands = Union[SetXMICommand, ElementEvent, Deviation]
+PossibleCommands = Union[StartProcess, ElementEvent, Deviation]
 
 
 @dataclass
